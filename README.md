@@ -15,7 +15,7 @@ menambahnya.
 
 PATCH  
 Digunakan untuk mengupdate kumpulan data (field) yang ada di
-dalam resource secara parNal.
+dalam resource secara partial.
 
 DELETE  
 Digunakan untuk menghapus resource.
@@ -26,5 +26,9 @@ Rincian endpoint yang kita buat adalah sebagai berikut:
 GET http://127.0.0.1:8000/api/product  
 GET http://127.0.0.1:8000/api/product/{id}  
 POST http://127.0.0.1:8000/api/product  
-PUT http://127.0.0.1:8000/api/product  
-DELETE http://127.0.0.1:8000/api/product
+PUT http://127.0.0.1:8000/api/product/{id}  
+DELETE http://127.0.0.1:8000/api/product/{id}
+
+disini kita gunakan :
+
+http://localhost:8000/api/product
