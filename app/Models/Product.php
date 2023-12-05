@@ -79,5 +79,40 @@ class Product extends DatabaseConfig{
         $this->conn->close();
     } 
 
+    public function findAllWithCategory()
+    {
+        $sql = "SELECT products.*, categories.category_name
+                FROM products
+                LEFT JOIN categories ON products.category_id = categories.id";
+        $result = $this->conn->query($sql);
+        $this->conn->close();
 
+        $data = [];
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+
+        return $data;
+    }
+
+    public function findByCategoryId($category_id)
+    {
+        $sql = "SELECT products.product_name, products.category_id, categories.category_name
+                FROM products
+                LEFT JOIN categories ON products.category_id = categories.id
+                WHERE products.category_id = ?";
+        
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $category_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $this->conn->close();
+
+        $data = [];
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+
+        return $data;
+    }
 }

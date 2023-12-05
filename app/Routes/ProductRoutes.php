@@ -50,7 +50,21 @@ class ProductRoutes{
             echo $controller->delete($id);
         }
 
+        // Jika request method GET dan path sama dengan '/api/products-with-categories'
+        if ($method == 'GET' && $path == '/api/products-with-categories') {
+            $controller = new ProductController();
+            echo $controller->indexWithCategory();
+        }
         
+        // Jika request method GET dan path mengandung '/api//{category_id}'
+        if ($method == 'GET' && strpos($path, '/api/products-by-category') == 0) {
+            // Extract category_id from the path
+            $pathParts = explode('/', $path);
+            $category_id = $pathParts[count($pathParts) - 1];
+
+            $controller = new ProductController();
+            echo $controller->findByCategoryId($category_id);
+        }
     }
 
 

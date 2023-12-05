@@ -74,4 +74,25 @@ class ProductController{
         
         return $this->apiResponse(200, "Success", $response);
     }
+
+    public function indexWithCategory()
+    {
+        $productModel = new Product();
+        $response = $productModel->findAllWithCategory();
+        return $this->apiResponse(200, "Success", $response);
+    }
+
+    public function findByCategoryId($category_id)
+    {
+        $productModel = new Product();
+        $response = $productModel->findByCategoryId($category_id);
+
+        if (empty($response)) {
+            return $this->apiResponse(404, "No products found for the given category_id", null);
+        }
+
+        return $this->apiResponse(200, "Success", $response);
+    }
+
+    
 }
