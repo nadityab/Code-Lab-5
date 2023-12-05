@@ -79,6 +79,7 @@ class Product extends DatabaseConfig{
         $this->conn->close();
     } 
 
+    // Mendapatkan semua data ditambahkan nama kategori
     public function findAllWithCategory()
     {
         $sql = "SELECT products.*, categories.category_name
@@ -95,6 +96,7 @@ class Product extends DatabaseConfig{
         return $data;
     }
 
+    // Mendapatkan data sesuai id kategori
     public function findByCategoryId($category_id)
     {
         $sql = "SELECT products.product_name, products.category_id, categories.category_name
@@ -114,5 +116,15 @@ class Product extends DatabaseConfig{
         }
 
         return $data;
+    }
+
+    //  Menambahkan category_id di sebuah product by ID
+    public function addCategoryId($id, $category_id)
+    {
+        $query = "UPDATE products SET category_id = ? WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("ii", $category_id, $id);
+        $stmt->execute();
+        $this->conn->close();
     }
 }

@@ -56,7 +56,7 @@ class ProductRoutes{
             echo $controller->indexWithCategory();
         }
         
-        // Jika request method GET dan path mengandung '/api//{category_id}'
+        // Jika request method GET dan path = '/api//{category_id}'
         if ($method == 'GET' && strpos($path, '/api/products-by-category') == 0) {
             // Extract category_id from the path
             $pathParts = explode('/', $path);
@@ -64,6 +64,17 @@ class ProductRoutes{
 
             $controller = new ProductController();
             echo $controller->findByCategoryId($category_id);
+        }
+
+        // jika request method PUT dan the path = '/api/add-category-to-product'
+        if ($method == 'PUT' && strpos($path, '/api/add-category-to-product') == 0) {
+            // Extract id and category_id from the path
+            $pathParts = explode('/', $path);
+            $id = $pathParts[count($pathParts) - 2];
+            $category_id = $pathParts[count($pathParts) - 1];
+
+            $controller = new ProductController();
+            echo $controller->addCategory($id, $category_id);
         }
     }
 

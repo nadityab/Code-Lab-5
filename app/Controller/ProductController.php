@@ -75,6 +75,7 @@ class ProductController{
         return $this->apiResponse(200, "Success", $response);
     }
 
+    //cari semua dari category
     public function indexWithCategory()
     {
         $productModel = new Product();
@@ -94,5 +95,11 @@ class ProductController{
         return $this->apiResponse(200, "Success", $response);
     }
 
-    
+    public function addCategory($id, $category_id)
+    {
+        $productModel = new Product();
+        $productModel->addCategoryId($id, $category_id);
+
+        return $this->apiResponse(200, "Success: Category added to product", null);
+    }
 }
